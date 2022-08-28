@@ -1,0 +1,17 @@
+-- change Speed to what ever you want your leader stat name to be and also name the number value the name as the leaderstats name is in here!!!!!
+local dataStore = game:GetService("DataStoreService"):GetDataStore("SpeedData") -- SpeedData is the name of the DataStore.Change it to reset all data.
+StarterSpeed = 0 -- This is the amount of Speed new players will have
+
+game.Players.PlayerAdded:Connect(function(player)
+	local leaderstats = Instance.new("Folder")
+	leaderstats.Name = "leaderstats" -- DO NOT CHANGE THIS NAME.PLEASE!
+	leaderstats.Parent = player
+	
+	local Currency = Instance.new("IntValue")
+	Currency.Name = "Speed" -- Change "Speed" to whatever your currency is named"
+	Currency.Parent = leaderstats
+	Currency.Value = dataStore:GetAsync(player.UserId) or StarterSpeed
+end)
+game.Players.PlayerRemoving:Connect(function(player)
+	dataStore:SetAsync(player.UserId, player.leaderstats.Speed.Value)
+end)
