@@ -1,0 +1,18 @@
+--change Speed to what ever your leaderstat name is!!
+local deb = false
+
+script.Parent.Activated:Connect(function()
+	local plr = game.Players:GetPlayerFromCharacter(script.Parent.Parent)
+	if deb == false then
+		deb = true
+		plr.leaderstats.Speed.Value += 1
+		wait(0)
+		deb = false
+	end	
+end)
+script.Parent.Equipped:Connect(function()
+	script.Parent.Activated:Connect(function()
+		local Hum = script.Parent.Parent:FindFirstChild("Humanoid")
+		Hum.WalkSpeed = Hum.WalkSpeed + 0.001
+	end)
+end)
